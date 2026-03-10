@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main()
+{
+    int memsize = 15;
+    int pagesize, nofpage;
+    int frame[100];
+    int frameno, offset;
+    int logadd, phyadd;
+    int i, choice;
+
+    printf("Memory size is %d\n", memsize);
+
+    // Input page size
+    printf("Enter page size: ");
+    scanf("%d", &pagesize);
+
+    if (pagesize <= 0 || pagesize > memsize)
+    {
+        printf("Invalid page size!\n");
+        return 1;
+    }
+
+    // Calculate number of pages
+    nofpage = memsize / pagesize;
+    printf("Number of pages: %d\n", nofpage);
+
+    // Input frame numbers
+    for (i = 0; i < nofpage; i++)
+    {
+        printf("Enter frame number for page %d: ", i);
+        scanf("%d", &frame[i]);
+    }
+
+    // Logical to Physical address translation
+    do
+    {
+        printf("Enter logical address: ");
+        scanf("%d", &logadd);
+
+        if (logadd < 0 || logadd >= memsize)
+        {
+            printf("Invalid logical address!\n");
+            continue;
+        }
+
+        frameno = logadd / pagesize;
+        offset = logadd % pagesize;
+
+        phyadd = (frame[frameno] * pagesize) + offset;
+
+        printf("Physical address is: %d\n", phyadd);
+
+        printf("Do you want to continue (1-Yes / 0-No): ");
+        scanf("%d", &choice);
+
+    } while (choice == 1);
+
+    return 0;
+}

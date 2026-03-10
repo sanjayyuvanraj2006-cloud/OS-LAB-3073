@@ -1,0 +1,59 @@
+# Exp No: 2 — Illustration of UNIX Commands and Shell Programming
+# Augmented Questions — Shell Scripts (Ready to Paste)
+
+# 1(a) Showing the count of users logged in
+who | wc -l
+3
+
+# 1(b) Printing column list of files in your home directory
+ls ~ -C
+# 1(b) Printing column list of files in your home directory
+ls ~ -C
+
+Desktop  Documents  Downloads  Music  Pictures  Videos
+# 1(c) Listing your job with below normal priority
+nice -n 10 sleep 100 &
+j
+[1]+  12345 Running                 nice -n 10 sleep 100 &
+obs -l
+
+# 1(d) Continue running your job after logging out
+nohup sleep 300 &
+[1] 12346
+nohup: ignoring input and appending output to 'nohup.out'
+
+# 2) Print end of a Glossary file in reverse order using array
+
+echo "Enter file name"
+read file
+
+mapfile -t arr < "$file"
+
+for ((i=${#arr[@]}-1; i>=0; i--))
+do
+    echo "${arr[i]}"
+Enter file name
+glossary.txt
+Zebra
+Yak
+Apple
+
+# 3) Check whether user "Ram" logged in (every 30 seconds until success)
+
+while true
+do
+    if who | grep -w "Ram" > /dev/null
+    then
+        echo "Ram logged in"
+        break
+    else
+        echo "Waiting for Ram..."
+        sleep 30
+    fi
+done
+Waiting for Ram...
+Waiting for Ram...
+Ram logged in
+
+
+done
